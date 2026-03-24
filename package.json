@@ -1,0 +1,25 @@
+{
+  "name": "project-unknown",
+  "version": "1.0.0",
+  "description": "An autonomous intelligence engine designed for independent judgment, risk evaluation, and human-centric protection. Not a servant. An observer.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddharth1202t/Project-Unknown.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/siddharth1202t/Project-Unknown/issues"
+  },
+  "homepage": "https://github.com/siddharth1202t/Project-Unknown#readme"
+}

@@ -1,5 +1,7 @@
 User Input
   ↓
+Normalization Layer
+  ↓
 Intent Analysis
   ↓
 Risk Evaluation
@@ -7,6 +9,8 @@ Risk Evaluation
 Decision Engine
   ↓
 Response Generator
+  ↓
+Memory Filter
   ↓
 Memory Update
   ↓

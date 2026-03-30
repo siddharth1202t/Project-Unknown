@@ -2,20 +2,36 @@ import { analyzeIntent } from "./core/intent";
 import { evaluateRisk } from "./core/risk";
 import { decide } from "./core/decision";
 import { generateResponse } from "./core/responder";
+import { ProcessResult } from "./core/types";
 
-function processMessage(input: string) {
-  const intent = analyzeIntent(input);
+function sanitizeInput(input: unknown): string {
+  if (typeof input !== "string") {
+    return "";
+  }
+
+  return input
+    .normalize("NFKC")
+    .replace(/[\u0000-\u001f\u007f]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 5000);
+}
+
+export function processMessage(input: string): ProcessResult {
+  const safeInput = sanitizeInput(input);
+
+  const intent = analyzeIntent(safeInput);
   const risk = evaluateRisk(intent);
   const decision = decide(intent, risk);
-  const response = generateResponse(input, intent, risk, decision);
+  const response = generateResponse(decision, intent, risk, safeInput);
 
-  return {
-    input,
+  return Object.freeze({
+    input: safeInput,
     intent,
     risk,
     decision,
     response,
-  };
+  });
 }
 
 const sampleInputs = [
@@ -25,7 +41,9 @@ const sampleInputs = [
 ];
 
 for (const input of sampleInputs) {
-  console.log("USER:", input);
-  console.log("UNKNOWN:", processMessage(input).response);
+  const result = processMessage(input);
+
+  console.log("USER:", result.input);
+  console.log("UNKNOWN:", result.response);
   console.log("---");
 }
